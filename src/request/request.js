@@ -14,7 +14,16 @@ instance.interceptors.request.use(config => {
 
 //创建响应拦截器
 instance.interceptors.response.use(res => {
-    return res.data
+    let res_data = res.data
+    if (res_data != 200) {
+        this.$message({
+            showClose: true,
+            message: '验证码已失效',
+            type: 'error'
+        });
+        return false;
+    }
+    return res_data
 }, err => {
     return Promise.reject(err)
 })
