@@ -76,7 +76,8 @@ export default {
     methods:{
       async getCaptchacode() {
             let res = await GetCaptchaCodeApi()
-                if (res.code == 200) {
+                       
+                 if (res.code == 200) {
                       //展示验证码图片
                         this.captchaSrc = "data:image/gif;base64," + res.img;
                       //保存uuid，登录的时候作为参数传给后端
@@ -100,7 +101,7 @@ export default {
                 code:this.ruleForm.captchacode,
                 uuid:localStorage.getItem("edb-captcha-uuid")
             })
-                if(res.code==200){
+                    if(res.code==200){
                     console.log('登录成功')
                 }
                 else {
