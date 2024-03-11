@@ -27,7 +27,6 @@
 import { validateUsername } from '@/utils/validate'
 import { validatePassword } from '@/utils/validate';
 import { GetCaptchaCodeApi,LoginApi } from '@/request/api';
-
 export default {
     data(){
         return{
@@ -36,7 +35,7 @@ export default {
                 password:"",
                 captchacode:""
             },
-            captchaSrc:"",
+             captchaSrc:"",
             rules:{
                 username:[
                     {
@@ -66,7 +65,7 @@ export default {
                         required:true,//必填项
                         message:"验证码不能为空哦", //提示
                         trigger:"blur" //触发
-                    },
+                    }
                 ]
             }
         }
@@ -75,7 +74,7 @@ export default {
         this.getCaptchacode();
     },
     methods:{
-        async getCaptchacode() {
+      async getCaptchacode() {
             let res = await GetCaptchaCodeApi()
                 if (res.code == 200) {
                       //展示验证码图片
@@ -166,6 +165,14 @@ export default {
     .login-page .login-box .captcha-box{
         display:flex;
     }
+    .login-page .login-box img {
+        margin-left: 20px;
+    }
+
+      .login-page .login-box .el-form-item__error{
+        color: #c8c5c5;
+        font-weight: bold;
+    }
     .login-page .login-box .login-btn{
         font-size: 18px;
         color: wheat;
@@ -174,20 +181,11 @@ export default {
         color: #9e8f8f;
         background-color: rgba(0, 255, 255, 0.669);
     }
-
-    .login-page .login-box img {
-        margin-left: 20px;
-    }
     .login-page .login-box .login-btn:active {
         transform: scale(0.98);
     }
    .login-page .login-box .el-form-item#login-btn-box .el-form-item__content {
     margin-left: 40px!important;
-    }
-
-    .login-page .login-box .el-form-item__error{
-        color: #c8c5c5;
-        font-weight: bold;
     }
 
 </style>
