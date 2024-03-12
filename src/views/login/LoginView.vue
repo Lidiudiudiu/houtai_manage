@@ -102,7 +102,17 @@ export default {
                 uuid:localStorage.getItem("edb-captcha-uuid")
             })
                     if(res.code==200){
-                    console.log('登录成功')
+                    //提示登录成功
+                    this.$message({
+                        message:"登录成功",
+                        type:"success"
+                    });
+                    //清除uuid
+                    localStorage.removeItem("edb-captcha-uuid")
+                    //保存token
+                    localStorage.setItem("edb-authorization-token",res.token)
+                    //跳转首页
+                    this.$router.push("/");
                 }
                 else {
                     this.$message({

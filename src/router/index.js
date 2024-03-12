@@ -1,15 +1,15 @@
-import HomeView from "@/views/HomeView.vue";
-//对应你要跳转的组件
+
 import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-export default new Router({
+const router = new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
-            name: 'HomeView',
-            component: HomeView
+            name: 'mainlayout',
+            component: () => import('../views/layout/MainLayout.vue')
         },
         {
             path: '/login',
@@ -18,3 +18,20 @@ export default new Router({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem("edb-authorization-token")
+    if (to.path === "/login && token") {
+        next("/");
+        return;
+    }
+    if (to.path !== "/login" && !token) {
+        next("/login");
+        return;
+    }
+    next();
+})
+
+
+
+export default router;
