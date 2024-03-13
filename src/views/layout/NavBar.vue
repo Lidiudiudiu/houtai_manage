@@ -16,14 +16,15 @@
       <div v-for="item,idx in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <!-- <i class="el-icon-location"></i> -->
+          <svg-icon icon-file-name="activity"></svg-icon>
           <span>{{ item.title }}</span>
         </template>
           <el-menu-item :index="sitem.path" v-for="sitem,sidx in item.children" :key="sidx">{{ sitem.title }}</el-menu-item>
       </el-submenu>
-
       <el-menu-item :index="item.path" v-else>
-        <i class="el-icon-menu"></i>
+        <!-- <i class="el-icon-menu"></i> -->
+        <svg-icon icon-file-name="activity"></svg-icon>
         <span slot="title">{{ item.title }}</span>
       </el-menu-item>
       </div>
@@ -36,47 +37,13 @@ import {mapState} from "vuex"
 export default {
   data() {
     return {
-        menuData:[
-          {
-            title:"首页",
-            path:"/"
-          },
-          {
-            title:"客户管理",
-            path:"/customer",
-            children:[
-              {
-                title:'客户档案',
-                path:"/customer/customer"
-              },
-              {
-                title:'拜访记录',
-                path:"/customer/visit"
-              }
-            ]
-          },
-          {
-            title:"修养预约",
-            path:"/business",
-            children:[
-              {title:'预约信息',path:"/business/appointment"},
-              {title:'服务项',path:"/business/service"},
-              {title:'结算单',path:"/business/statement"}
-            ]
-          },
-          {
-            title:'流程管理',
-            path:"/flow",
-            children:[
-              {title:'审核流程定义',path:"/flow/definition"},
-            ]
-          }
-        ]
+        
     }
   },
   computed:{
     ...mapState({
-      isCollapse:state => state.navCollapse.isCollapse
+      isCollapse:state => state.navCollapse.isCollapse,
+      menuData:state=>state.userMenuData.menuData
     })
   }
 }
@@ -122,5 +89,13 @@ export default {
   }
   .el-tooltip__popper.is-dark span{
     display: none;
+  }
+
+  .el-submenu .el-menu-item{
+    background-color: rgb(38,52,69)!important;
+  }
+
+  .el-menu .el-menu-item:hover,.el-submenu__title:hover{
+    background-color: #1411118b!important;
   }
 </style>
