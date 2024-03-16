@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router"
 //创建实例
 const instance = axios.create({
     baseURL: "http://tech.wolfcode.cn:23683",
@@ -20,7 +21,15 @@ instance.interceptors.request.use(config => {
 
 //创建响应拦截器
 instance.interceptors.response.use(res => {
+
+    //token过期
+    if (res.data.code == 401) {
+        localStorage.removeItem("edb-authorization-token");
+        router.push("/login")
+    }
+
     return res.data
+
 }, err => {
     return Promise.reject(err)
 })

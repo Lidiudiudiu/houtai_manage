@@ -27,6 +27,7 @@
 import { validateUsername } from '@/utils/validate'
 import { validatePassword } from '@/utils/validate';
 import { GetCaptchaCodeApi,LoginApi } from '@/request/api';
+import {mapMutations,mapActions} from 'vuex'
 export default {
     data(){
         return{
@@ -72,8 +73,16 @@ export default {
     },
     created(){
         this.getCaptchacode();
+        this.changeMenuData([]);
     },
     methods:{
+        ...mapMutations({
+            changeMenuData:"userMenuData/changeMenuData",
+
+        }),
+        ...mapActions({
+            asyncChangeUserInfo:"userInfo/asyncChangeUserInfo"
+        }),
       async getCaptchacode() {
             let res = await GetCaptchaCodeApi()
                        
@@ -89,8 +98,8 @@ export default {
                     message: '错了哦，这是一条错误消息',
                     type: 'error'
                     });
-                    console.log("111")
                 }
+            console.log("验证码请求",res)
          },
        submitForm(formName) {
         this.$refs[formName].validate(async (valid) => {
@@ -101,6 +110,8 @@ export default {
                 code:this.ruleForm.captchacode,
                 uuid:localStorage.getItem("edb-captcha-uuid")
             })
+
+            console.log("登录请求：",res)
                     if(res.code==200){
                     //提示登录成功
                     this.$message({
@@ -113,6 +124,7 @@ export default {
                     localStorage.setItem("edb-authorization-token",res.token)
                     //跳转首页
                     this.$router.push("/");
+                    this.asyncChangeUserInfo();
                 }
                 else {
                     this.$message({

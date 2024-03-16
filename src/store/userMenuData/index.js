@@ -6,7 +6,6 @@ export default {
     mutations: {
         changeMenuData(state, payload) {
             state.menuData = payload;
-            console.log("vuex", state.menuData)
         }
     }
 }

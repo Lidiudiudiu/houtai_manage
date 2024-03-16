@@ -33,5 +33,6 @@ export default {
 
     .layout .layout-right {
       flex:1;
+      padding-left: 220px;
     }
 </style>

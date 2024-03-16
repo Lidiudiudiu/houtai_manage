@@ -12,19 +12,20 @@
       :router="true"
       :collapse="isCollapse"
       :collapse-transition="false"
+      :default-active="$route.path"
       >
       <div v-for="item,idx in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
         <template slot="title">
           <!-- <i class="el-icon-location"></i> -->
-          <svg-icon icon-file-name="activity"></svg-icon>
+          <svg-icon icon-file-name="user"></svg-icon>
           <span>{{ item.title }}</span>
         </template>
           <el-menu-item :index="sitem.path" v-for="sitem,sidx in item.children" :key="sidx">{{ sitem.title }}</el-menu-item>
       </el-submenu>
       <el-menu-item :index="item.path" v-else>
         <!-- <i class="el-icon-menu"></i> -->
-        <svg-icon icon-file-name="activity"></svg-icon>
+        <svg-icon icon-file-name="user"></svg-icon>
         <span slot="title">{{ item.title }}</span>
       </el-menu-item>
       </div>
@@ -55,8 +56,10 @@ export default {
     height: 100%;
     background-color: #0c0a0a72;
     box-shadow: 3px 0px 3px #ccc;
-    position: relative; /*提升层级*/
+    position: fixed; 
+    z-index: 999;
     transition: all .7s;
+    overflow: hidden;
   }
 
   .navbar .el-menu {
@@ -98,4 +101,15 @@ export default {
   .el-menu .el-menu-item:hover,.el-submenu__title:hover{
     background-color: #1411118b!important;
   }
+
+ .svg-icon {
+    font-size: 20px;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: -0.35em;
+    fill: currentColor;
+    margin-right: 8px;
+    background-color: #d7d7e3;
+}
 </style>
